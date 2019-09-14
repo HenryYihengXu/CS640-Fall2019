@@ -72,7 +72,7 @@ public class Iperfer {
             }
 
             Client client = new Client(host, portNumber, time);
-
+            client.callClient();
 
         } else {
             if (args.length != 3) {
@@ -85,7 +85,7 @@ public class Iperfer {
             }
             int portNumber = 0;
             try {
-                portNumber = Integer.parseInt(args[4]);
+                portNumber = Integer.parseInt(args[2]);
             } catch (NumberFormatException e) {
                 System.err.println("Error: port number must be in the range 1024 to 65535");
                 System.exit(1);
@@ -96,6 +96,7 @@ public class Iperfer {
             }
 
             Server server = new Server(portNumber);
+            server.listen();
         }
     }
 }
