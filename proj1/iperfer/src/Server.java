@@ -25,7 +25,7 @@ public class Server {
         long startTime = 0;
         int data;
 
-        if ((data = reader.read(buffer, 0, 10000)) != -1) {
+        if ((data = reader.read(buffer, 0, 1)) != -1) {
             startTime = System.nanoTime();
             dataReceived += data;
             //System.out.println(data);
