@@ -3,6 +3,8 @@ import java.net.*;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
+import static java.lang.System.currentTimeMillis;
+
 public class Client {
 
     private String host;
@@ -29,7 +31,8 @@ public class Client {
         Arrays.fill(zeroArray, (byte)0x0);
 
         int counter = 0;
-        for (long stop = System.nanoTime() + TimeUnit.SECONDS.toNanos(time); stop > System.nanoTime();) {
+        long stop = currentTimeMillis() + time * 1000;
+        while (stop > currentTimeMillis()) {
             outStream.write(zeroArray);
             counter++;
         }

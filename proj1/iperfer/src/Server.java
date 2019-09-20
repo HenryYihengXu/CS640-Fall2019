@@ -1,7 +1,7 @@
 import java.io.*;
 import java.net.*;
-import java.sql.Time;
-import java.util.concurrent.TimeUnit;
+
+import static java.lang.System.currentTimeMillis;
 
 public class Server {
 
@@ -26,21 +26,18 @@ public class Server {
         int data;
 
         if ((data = reader.read(buffer, 0, 1)) != -1) {
-            startTime = System.nanoTime();
+            startTime = currentTimeMillis();
             dataReceived += data;
-            //System.out.println(data);
         }
         while ((data = reader.read(buffer, 0, 10000)) != -1) {
             dataReceived += data;
-            //System.out.println(data);
         }
-        elapsedTime = System.nanoTime() - startTime;
+        elapsedTime = currentTimeMillis() - startTime;
         dataReceived = dataReceived / 1000;
-        double rate = (double)dataReceived / (double)1000 / ((double)elapsedTime / (double)1000000000);
+        double rate = (double)dataReceived / (double)1000 / ((double)elapsedTime / (double)1000);
 
         System.out.println("received=" + dataReceived + " KB" + " rate=" + rate + " Mbps");
         clientSoc.close();
         serverSoc.close();
     }
-
 }

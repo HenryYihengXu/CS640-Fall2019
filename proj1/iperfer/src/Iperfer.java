@@ -24,6 +24,7 @@ public class Iperfer {
             }
             String host = args[2];
             String[] addresses = host.split("[.]");
+            // validation: check if the address has four sections
             if (addresses.length != 4) {
                 System.err.println("Error: invalid host name");
                 System.exit(1);
@@ -32,6 +33,7 @@ public class Iperfer {
             int section1 = 0;
             int section2 = 0;
             int section3 = 0;
+            // validation: check if each section of the address is an int
             try {
                 section0 = Integer.parseInt(addresses[0]);
                 section1 = Integer.parseInt(addresses[1]);
@@ -41,6 +43,7 @@ public class Iperfer {
                 System.err.println("Error: invalid host name");
                 System.exit(1);
             }
+            // validation: check if each section is between 0 and 255
             if (section0 < 0 || section0 > 255
                     || section1 < 0 || section1 > 255
                     || section2 < 0 || section2 > 255
@@ -60,13 +63,15 @@ public class Iperfer {
                 System.exit(1);
             }
             int time = 0;
+            // validation: check if the time is an int
             try {
                 time = Integer.parseInt(args[6]);
             } catch (NumberFormatException e) {
                 System.err.println("Error: invalid time");
                 System.exit(1);
             }
-            if (time < 0) {
+            // validation: check if the time is positive
+            if (time <= 0) {
                 System.err.println("Error: time must be greater than 0");
                 System.exit(1);
             }
