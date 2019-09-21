@@ -1,0 +1,5 @@
+Connectiong to 10.0.0.10 @ port number 9999
+Connection Established
+
+sent 5830 KB rate=0.19433333333333333 Mbps
+received=5830 KB rate=0.18001605632063236 Mbps
