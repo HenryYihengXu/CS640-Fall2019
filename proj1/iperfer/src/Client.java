@@ -19,10 +19,10 @@ public class Client {
 
     public void callClient() throws IOException {
 
-        System.out.println("Connectiong to " + host + " @ port number " + portNumber);
+        //System.out.println("Connectiong to " + host + " @ port number " + portNumber);
 
         Socket clientSoc = new Socket(host, portNumber);
-        System.out.println("Connection Established\n");
+        //System.out.println("Connection Established\n");
 
         DataOutputStream outStream = new DataOutputStream(clientSoc.getOutputStream());
 
@@ -39,7 +39,8 @@ public class Client {
 
         clientSoc.close();
         double rate = (double)counter / (double)1000 / (double)time; 
-        System.out.println("sent " + counter + " KB rate=" + rate + " Mbps");
+        //System.out.println("sent " + counter + " KB rate=" + rate + " Mbps");
+        System.out.println("sent=" + counter + " KB rate=" + String.format("%.3f", rate) + " Mbps");
     }
 
 }

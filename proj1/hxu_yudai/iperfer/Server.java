@@ -36,7 +36,8 @@ public class Server {
         dataReceived = dataReceived / 1000;
         double rate = (double)dataReceived / (double)1000 / ((double)elapsedTime / (double)1000);
 
-        System.out.println("received=" + dataReceived + " KB" + " rate=" + rate + " Mbps");
+        //System.out.println("received=" + dataReceived + " KB" + " rate=" + rate + " Mbps");
+        System.out.println("received=" + dataReceived + " KB rate=" + String.format("%.3f", rate) + " Mbps");
         clientSoc.close();
         serverSoc.close();
     }
