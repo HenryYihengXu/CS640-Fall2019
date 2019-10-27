@@ -16,7 +16,7 @@ import edu.wisc.cs.sdn.vnet.Iface;
 
 /**
  * Route table for a router.
- *
+ * 
  * @author Aaron Gember-Jacobson
  */
 public class RouteTable {
@@ -32,7 +32,7 @@ public class RouteTable {
 
 	/**
 	 * Lookup the route entry that matches a given IP address.
-	 *
+	 * 
 	 * @param ip IP address
 	 * @return the matching route entry, null if none exists
 	 */
@@ -41,13 +41,17 @@ public class RouteTable {
 			/*****************************************************************/
 			/* TODO: Find the route entry with the longest prefix match */
 			RouteEntry result = null;
-			int longestMask = 0;
-			for (RouteEntry rt : this.entries) {
-				int destIp = rt.getDestinationAddress();
-				int mask = rt.getMaskAddress();
-				if (mask > longestMask && (ip & mask) == (destIp & mask)) {
-					longestMask = mask;
-					result = rt;
+			int longestMaskLen = 0;
+			for (RouteEntry re : this.entries) {
+				int destIp = re.getDestinationAddress();
+				int mask = re.getMaskAddress();
+				int maskLen = bitLength(mask);
+
+				// mask starts from 1 so it is the negative value, so we will find the smallest
+				// mask when we are trying to find the longest one
+				if (maskLen > longestMaskLen && ((ip & mask) == (destIp & mask))) {
+					longestMaskLen = maskLen;
+					result = re;
 				}
 			}
 			return result;
@@ -56,9 +60,19 @@ public class RouteTable {
 		}
 	}
 
+	private int bitLength(int num) {
+		int counter = 0;
+
+		while (num != 0) {
+			num = (num & (num << 1));
+			counter++;
+		}
+		return counter;
+	}
+
 	/**
 	 * Populate the route table from a file.
-	 *
+	 * 
 	 * @param filename name of the file containing the static route table
 	 * @param router   the route table is associated with
 	 * @return true if route table was successfully loaded, otherwise false
@@ -161,7 +175,7 @@ public class RouteTable {
 
 	/**
 	 * Add an entry to the route table.
-	 *
+	 * 
 	 * @param dstIp  destination IP
 	 * @param gwIp   gateway IP
 	 * @param maskIp subnet mask
@@ -177,7 +191,7 @@ public class RouteTable {
 
 	/**
 	 * Remove an entry from the route table.
-	 *
+	 * 
 	 * @param dstIP  destination IP of the entry to remove
 	 * @param maskIp subnet mask of the entry to remove
 	 * @return true if a matching entry was found and removed, otherwise false
@@ -195,7 +209,7 @@ public class RouteTable {
 
 	/**
 	 * Update an entry in the route table.
-	 *
+	 * 
 	 * @param dstIP          destination IP of the entry to update
 	 * @param maskIp         subnet mask of the entry to update
 	 * @param gatewayAddress new gateway IP address for matching entry
@@ -216,7 +230,7 @@ public class RouteTable {
 
 	/**
 	 * Find an entry in the route table.
-	 *
+	 * 
 	 * @param dstIP  destination IP of the entry to find
 	 * @param maskIp subnet mask of the entry to find
 	 * @return a matching entry if one was found, otherwise null
@@ -246,3 +260,4 @@ public class RouteTable {
 		}
 	}
 }
+
